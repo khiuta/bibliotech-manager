@@ -7,15 +7,15 @@ import axios from '../services/axios';
 
 const Home = async () => {
   let bookData = (await axios.get('/book')).data;
-  let lendData = (await axios.get('/lending')).data;
+  let loanData = (await axios.get('/loan')).data;
   let bookQtt = 0;
-  let lendQtt = lendData.length;
+  let loanQtt = loanData.length;
   let pendQtt = 0;
 
   bookData.forEach(book => {
     bookQtt += book.quantity;
   });
-  lendData.forEach(lend => {
+  loanData.forEach(lend => {
     if(lend.pendent == true) pendQtt++;
   });
 
@@ -33,7 +33,7 @@ const Home = async () => {
           </section>
           <section className='flex flex-col w-[20%] h-[80%] bg-[#36383E] text-white text-center py-10 gap-2 rounded-3xl'>
             <h1 className='text-3xl font-bold'>Emprestados</h1>
-            <p className='text-[700%] font-bold'>{lendQtt}</p>
+            <p className='text-[700%] font-bold'>{loanQtt}</p>
           </section>
           <section className='flex flex-col w-[20%] h-[80%] bg-green-main text-white text-center py-10 gap-2 rounded-3xl'>
             <h1 className='text-3xl font-bold'>Pendentes</h1>
