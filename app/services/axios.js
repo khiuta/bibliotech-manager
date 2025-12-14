@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default axios.create({
-  baseURL: 'http://ec2-54-163-40-255.compute-1.amazonaws.com:5000/',
+  baseURL: baseURL,
 });
