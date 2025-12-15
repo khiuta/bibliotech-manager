@@ -12,3 +12,4 @@ yarn-error.log*
 README.md
 Dockerfile
 .dockerignore
+docker-compose.yml
