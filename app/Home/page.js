@@ -6,18 +6,38 @@ import Sidebar from '../components/Sidebar'
 import axios from '../services/axios';
 
 const Home = async () => {
-  let bookData = (await axios.get('/book')).data;
-  let loanData = (await axios.get('/loan')).data;
+  let bookData = [];
+  let loanData = [];
+
+  try {
+    const booksResponse = await axios.get('/book');
+    bookData = booksResponse.data;
+  } catch (error) {
+    console.error("Erro ao buscar livros (possível build time):", error.message);
+  }
+
+  try {
+    const loansResponse = await axios.get('/loan');
+    loanData = loansResponse.data;
+  } catch (error) {
+    console.error("Erro ao buscar empréstimos (possível build time):", error.message);
+  }
+
   let bookQtt = 0;
-  let loanQtt = loanData.length;
+  let loanQtt = loanData ? loanData.length : 0;
   let pendQtt = 0;
 
-  bookData.forEach(book => {
-    bookQtt += book.quantity;
-  });
-  loanData.forEach(lend => {
-    if(lend.pendent == true) pendQtt++;
-  });
+  if (bookData && Array.isArray(bookData)) {
+    bookData.forEach(book => {
+      bookQtt += book.quantity;
+    });
+  }
+
+  if (loanData && Array.isArray(loanData)) {
+    loanData.forEach(lend => {
+      if(lend.pendent == true) pendQtt++;
+    });
+  }
 
   return (
     <main className="bg-main flex w-screen">

@@ -1,16 +1,25 @@
 import React from 'react'
-
 import axios from '../services/axios'
 import Sidebar from '../components/Sidebar'
 import BookCard from '../components/BookCard';
 
 const Collection = async () => {
-  let searchData = (await axios.get('/book')).data;
+  let searchData = [];
 
-  async function getData() {
-    searchData = (await axios.get('/book')).data;
-    console.log(searchData)
+  try {
+    // Tenta buscar os dados da API
+    // Se a API estiver offline (como no docker build), vai cair no catch
+    const response = await axios.get('/book');
+    searchData = response.data;
+    console.log("Dados recebidos da API:", searchData);
+  } catch (error) {
+    // Apenas avisa no console, mas NÃO quebra o build
+    console.error("Erro ao buscar livros na Collection (possível build time):", error.message);
+    searchData = []; // Garante que searchData seja um array vazio e não undefined
   }
+
+  // Função auxiliar antiga (pode ser removida se não for usada, mas mantive a lógica)
+  // async function getData() { ... }
 
   return (
     <main className='flex w-full h-screen'>
@@ -21,7 +30,12 @@ const Collection = async () => {
           <input className='flex bg-[#191919] w-[30%] h-[40%] rounded-2xl p-4 text-xl focus: outline-none' placeholder='Procure por um livro' />
         </header>
         <div className='flex flex-col w-full h-[85%] px-4 py-10 items-center gap-4'>
-          {searchData != undefined ? <BookCard books={searchData} /> : null}
+          {/* Verifica se searchData tem itens antes de renderizar */}
+          {searchData && searchData.length > 0 ? (
+            <BookCard books={searchData} />
+          ) : (
+            <p className="text-white mt-10">Nenhum livro encontrado ou erro de conexão.</p>
+          )}
         </div>
       </div>
     </main>
