@@ -6,9 +6,9 @@ import axios from "../services/axios";
 const StudentForm = () => {
   const initialData = {
     matricula: "",
-    full_name: "", // Changed from 'name'
+    full_name: "",
     course: "",
-    period: "", // Changed from 'semester'
+    period: "",
     can_borrow: "true",
   };
 
@@ -22,13 +22,12 @@ const StudentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Create the payload with the correct types
       const payload = {
         matricula: studentData.matricula,
         full_name: studentData.full_name,
         course: studentData.course,
-        period: parseInt(studentData.period) || 1, // Ensure integer for period
-        can_borrow: studentData.can_borrow === "true", // Ensure boolean
+        period: parseInt(studentData.period) || 1,
+        can_borrow: studentData.can_borrow === "true",
       };
 
       await axios.post("/student", payload);
@@ -54,7 +53,7 @@ const StudentForm = () => {
           Nome Completo
         </label>
         <input
-          name="full_name" // Updated name attribute
+          name="full_name"
           value={studentData.full_name}
           onChange={handleChange}
           className="bg-[#191919] text-white w-full h-12 rounded-xl px-4 text-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
@@ -95,7 +94,7 @@ const StudentForm = () => {
             Período
           </label>
           <input
-            name="period" // Updated name attribute
+            name="period"
             type="number"
             value={studentData.period}
             onChange={handleChange}

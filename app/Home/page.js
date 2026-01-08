@@ -5,6 +5,8 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import Sidebar from "../components/Sidebar";
 import axios from "../services/axios";
 
+export const dynamic = 'force-dynamic';
+
 const Home = async () => {
   let bookQtt = 0;
   let loanQtt = 0;
@@ -19,14 +21,14 @@ const Home = async () => {
     const bookData = bookResponse.data;
     const loanData = loanResponse.data;
 
-    // Calculate book quantity if data exists
+    // calculate book quantity
     if (bookData && Array.isArray(bookData)) {
       bookData.forEach((book) => {
         bookQtt += book.quantity;
       });
     }
 
-    // Calculate loan stats if data exists
+    // calculate how many loans and how many are late
     if (loanData && Array.isArray(loanData)) {
       loanQtt = loanData.length;
       loanData.forEach((lend) => {
@@ -35,7 +37,6 @@ const Home = async () => {
     }
   } catch (error) {
     console.error("Error fetching data:", error);
-    // You can choose to handle specific errors here if needed
   }
 
   return (

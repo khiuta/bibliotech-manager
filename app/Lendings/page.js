@@ -14,7 +14,6 @@ const Lendings = () => {
           <h1 className="text-5xl font-bold">Gerenciamento</h1>
         </header>
 
-        {/* Container for the side-by-side forms */}
         <div className="flex w-full h-[85%] items-center justify-center gap-10 p-10 overflow-auto">
           <LendingForm />
           <StudentForm />

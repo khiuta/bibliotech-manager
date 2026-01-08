@@ -8,9 +8,8 @@ import BookCard from "../components/BookCard";
 const Collection = () => {
   const [books, setBooks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [refreshTrigger, setRefreshTrigger] = useState(0); // State to trigger re-fetches
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
-  // Fetch books on load or when refreshTrigger changes
   useEffect(() => {
     const fetchBooks = async () => {
       try {
@@ -24,7 +23,6 @@ const Collection = () => {
   }, [refreshTrigger]);
 
   const handleBookUpdate = () => {
-    // Increment trigger to reload the list
     setRefreshTrigger((prev) => prev + 1);
   };
 

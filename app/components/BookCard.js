@@ -5,8 +5,6 @@ import { LuPencil, LuTrash } from "react-icons/lu";
 import toast from "react-hot-toast";
 import axios from "../services/axios";
 
-// ⚠️ IMPORTANT: Replace this URL with your actual Minio public address.
-// If testing locally: http://localhost:9000/bibliotech-minio-storage/
 const MINIO_BASE_URL = "http://localhost:9000/bibliotech-minio-storage/";
 
 const BookCard = ({ book, onUpdate }) => {
@@ -17,16 +15,12 @@ const BookCard = ({ book, onUpdate }) => {
       : "https://placehold.co/400x600?text=Livro",
   );
 
-  // --- Modal States ---
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
-  // --- Form States ---
   const [editData, setEditData] = useState({ ...book });
   const [deleteQuantity, setDeleteQuantity] = useState("");
-
-  // --- Handlers ---
 
   const handleEditClick = (e) => {
     e.stopPropagation();
@@ -41,7 +35,6 @@ const BookCard = ({ book, onUpdate }) => {
     setShowDeleteConfirmation(false);
   };
 
-  // Logic for the checkbox "Remover todos"
   const handleCheckboxChange = (e) => {
     if (e.target.checked) {
       setDeleteQuantity(book.quantity);
@@ -96,7 +89,7 @@ const BookCard = ({ book, onUpdate }) => {
 
   return (
     <>
-      {/* --- Main Card --- */}
+      {/* --- main card --- */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}
         className={`
@@ -106,7 +99,7 @@ const BookCard = ({ book, onUpdate }) => {
           ${isExpanded ? "scale-105 z-10" : "hover:scale-105 h-[450px]"}
         `}
       >
-        {/* Image Area */}
+        {/* image area */}
         <div
           className={`w-full bg-gray-200 flex items-center justify-center overflow-hidden ${isExpanded ? "h-[250px]" : "h-[85%]"}`}
         >
@@ -118,7 +111,7 @@ const BookCard = ({ book, onUpdate }) => {
           />
         </div>
 
-        {/* Content Area */}
+        {/* content area */}
         <div className="flex flex-col p-4 gap-2 text-black w-full bg-white h-auto min-h-[15%] justify-center relative">
           <h2 className="text-xl font-bold leading-tight text-center">
             {book.title}
@@ -153,7 +146,7 @@ const BookCard = ({ book, onUpdate }) => {
             </div>
           )}
 
-          {/* Action Icons */}
+          {/* action icons */}
           {isExpanded && (
             <div className="absolute bottom-4 left-0 w-full flex justify-center gap-6 mt-4 z-20">
               <button
@@ -174,7 +167,7 @@ const BookCard = ({ book, onUpdate }) => {
         </div>
       </div>
 
-      {/* --- Edit Modal --- */}
+      {/* --- edit modal --- */}
       {showEditModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/40">
           <div className="bg-[#2B2B2B] text-white p-8 rounded-3xl w-[500px] shadow-2xl flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
@@ -193,7 +186,7 @@ const BookCard = ({ book, onUpdate }) => {
                 placeholder="Título"
               />
             </div>
-            {/* ... other edit inputs remain same ... */}
+            {/* other edit inputs remain the same as it was */}
             <div className="flex flex-col gap-1">
               <label className="text-sm text-gray-400 ml-1">Autor</label>
               <input
@@ -284,7 +277,7 @@ const BookCard = ({ book, onUpdate }) => {
         </div>
       )}
 
-      {/* --- Delete/Remove Modal --- */}
+      {/* --- delete/remove modal --- */}
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/40">
           <div className="bg-[#2B2B2B] text-white p-8 rounded-3xl w-[400px] shadow-2xl flex flex-col gap-6">
@@ -299,7 +292,6 @@ const BookCard = ({ book, onUpdate }) => {
                     Cópias a remover
                   </label>
 
-                  {/* Shortened Input */}
                   <input
                     type="number"
                     className="w-24 bg-[#191919] p-3 rounded-xl focus:outline-none text-center text-xl"
@@ -308,7 +300,6 @@ const BookCard = ({ book, onUpdate }) => {
                     placeholder="0"
                   />
 
-                  {/* Checkbox for "Remover todos" */}
                   <div className="flex items-center gap-2 mt-2">
                     <input
                       type="checkbox"
@@ -346,7 +337,7 @@ const BookCard = ({ book, onUpdate }) => {
                 </div>
               </>
             ) : (
-              // --- Confirmation Step ---
+              // confirmation step
               <>
                 <h2 className="text-xl font-bold text-center">Confirmação</h2>
                 <p className="text-center text-gray-300 text-lg">
