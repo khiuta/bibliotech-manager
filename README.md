@@ -1,3 +1,4 @@
 ## Para rodar a aplicação
-npm install
-npm run dev
+```bash
+docker compose up -d
+```
